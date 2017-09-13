@@ -1,0 +1,33 @@
+---
+- name: Ensure resolvconf is installed
+  package:
+    name: "{{ resolvconf_package }}"
+    state: present
+  become: true
+  when:
+    - resolvconf_nameserver != []
+    - resolvconf_package != ""
+
+- name: Copy head file
+  template:
+    src: head.j2
+    dest: /etc/resolvconf/resolv.conf.d/head
+    owner: root
+    group: root
+    mode: 0644
+  become: true
+  when: resolvconf_nameserver != []
+
+- name: Start/enable resolvconf service
+  service:
+    name: resolvconf
+    state: started
+    enabled: yes
+  ignore_errors: true
+  become: true
+  when: resolvconf_nameserver != []
+
+- name: Update resolvconf file
+  command: resolvconf -u
+  become: true
+  when: resolvconf_nameserver != []
