@@ -1,37 +1,4 @@
 ---
-- name: Install required packages
-  package:
-    name: "{{ resolvconf_package }}"
-    state: present
-  become: true
-  when:
-    - resolvconf_nameserver
-    - resolvconf_package|length
-
-- name: Copy configuration files
-  template:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    owner: root
-    group: root
-    mode: 0644
-  become: true
-  with_items:
-    - src: head.j2
-      dest: /etc/resolvconf/resolv.conf.d/head
-  when: resolvconf_nameserver
-
-- name: Start/enable resolvconf service
-  service:
-    name: resolvconf
-    state: started
-    enabled: yes
-  ignore_errors: true
-  become: true
-  when: resolvconf_nameserver
-
-- name: Update resolvconf file
-  command: resolvconf -u
-  become: true
-  changed_when: false
+- name: Include release specific tasks
+  include: "{{ ansible_distribution_release }}.yml"
   when: resolvconf_nameserver
