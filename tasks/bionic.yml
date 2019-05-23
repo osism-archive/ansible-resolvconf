@@ -15,6 +15,15 @@
   become: true
   when: resolvconf_package|length
 
+- name: Retrieve resolv.conf file status
+  stat:
+    path: /etc/resolv.conf
+  register: resolvconf_file
+
+- name: Move existing resolv.conf file
+  command: "mv /etc/resolv.conf /etc/resolv.conf.{{ ansible_date_time.date }}"
+  when: resolvconf_file.stat.islnk is defined and not resolvconf_file.stat.islnk
+
 - name: Copy configuration files
   template:
     src: "{{ item.src }}"
