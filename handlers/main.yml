@@ -1,7 +1,1 @@
 ---
-- name: Restart systemd-resolved service
-  systemd:
-    name: systemd-resolved
-    daemon_reload: yes
-    state: restarted
-  become: true
