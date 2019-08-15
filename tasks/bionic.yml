@@ -20,8 +20,13 @@
     path: /etc/resolv.conf
   register: resolvconf_file
 
-- name: Move existing resolv.conf file
-  command: "mv /etc/resolv.conf /etc/resolv.conf.{{ ansible_date_time.date }}"
+- name: Archive existing /etc/resolv.conf file
+  synchronize:
+    src: "/etc/resolv.conf"
+    dest: "/etc/resolv.conf.{{ ansible_date_time.date }}"
+    archive: yes
+  become: true
+  delegate_to: "{{ inventory_hostname }}"
   when: resolvconf_file.stat.islnk is defined and not resolvconf_file.stat.islnk
 
 - name: Copy configuration files
@@ -50,4 +55,5 @@
     src: /run/systemd/resolve/stub-resolv.conf
     dest: /etc/resolv.conf
     state: link
+    force: yes
   become: true
