@@ -35,7 +35,15 @@
   with_items:
     - src: bionic/resolved.conf.j2
       dest: /etc/systemd/resolved.conf
-  notify: Restart systemd-resolved service
+  register: resolved_conf
+
+- name: Restart systemd-resolved service
+  when: resolved_conf.changed
+  systemd:
+    name: systemd-resolved
+    daemon_reload: yes
+    state: restarted
+  become: true
 
 - name: Link /etc/resolv.conf to /run/systemd/resolve/stub-resolv.conf
   file:
