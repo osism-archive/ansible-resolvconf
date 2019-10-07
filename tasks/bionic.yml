@@ -43,7 +43,7 @@
   register: resolved_conf
 
 - name: Restart systemd-resolved service
-  when: resolved_conf.changed
+  when: resolved_conf.changed  # noqa 503
   systemd:
     name: systemd-resolved
     daemon_reload: yes
