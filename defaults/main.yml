@@ -5,6 +5,6 @@
 resolvconf_nameserver:
   - 9.9.9.9
   - 149.112.112.112
-resolvconf_search: osism.io
+resolvconf_search: osism.local
 
 resolvconf_package: resolvconf
