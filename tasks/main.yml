@@ -1,4 +1,4 @@
 ---
 - name: Include release specific tasks
   include: "{{ ansible_distribution_release }}.yml"
-  when: resolvconf_nameserver
+  when: resolvconf_nameserver|length > 0
