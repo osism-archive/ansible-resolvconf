@@ -14,7 +14,7 @@
     group: root
     mode: 0644
   become: true
-  with_items:
+  loop:
     - src: xenial/head.j2
       dest: /etc/resolvconf/resolv.conf.d/head
 
