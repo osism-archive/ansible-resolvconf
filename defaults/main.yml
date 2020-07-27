@@ -8,3 +8,5 @@ resolvconf_nameserver:
 resolvconf_search: osism.local
 
 resolvconf_package: resolvconf
+
+resolvconf_always_validate_dnssec: false
