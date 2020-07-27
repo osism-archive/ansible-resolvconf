@@ -12,3 +12,4 @@ resolvconf_package: resolvconf
 
 resolvconf_always_validate_dnssec: allow-downgrade
 resolvconf_minimum_number_of_nameservers: 2
+resolvconf_dns_over_tls: false

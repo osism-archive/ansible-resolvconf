@@ -12,3 +12,8 @@ DNSSEC={{ 'yes' if resolvconf_always_validate_dnssec|bool else 'no' }}
 {%- if resolvconf_fallback_nameserver|length > 0 %}
 FallbackDNS={% for nameserver in resolvconf_fallback_nameserver %}{{ nameserver }}{% if not loop.last %} {% endif %}{% endfor %}
 {% endif %}
+{%- if resolvconf_dns_over_tls is string %}
+DNSOverTLS={{ resolvconf_dns_over_tls }}
+{%- else %}
+DNSOverTLS={{ 'yes' if resolvconf_dns_over_tls|bool else 'no' }}
+{% endif %}
