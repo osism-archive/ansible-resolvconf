@@ -4,9 +4,3 @@
 DNS={% for nameserver in resolvconf_nameserver %}{{ nameserver }}{% if not loop.last %} {% endif %}{% endfor %}
 Domains={{ resolvconf_search }}
 DNSSEC={{ 'yes' if resolvconf_always_validate_dnssec|bool else 'no' }}
-
-#FallbackDNS=
-#LLMNR=no
-#MulticastDNS=no
-#Cache=yes
-#DNSStubListener=yes
