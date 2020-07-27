@@ -17,3 +17,8 @@ DNSOverTLS={{ resolvconf_dns_over_tls }}
 {%- else %}
 DNSOverTLS={{ 'yes' if resolvconf_dns_over_tls|bool else 'no' }}
 {% endif %}
+{%- if resolvconf_cache is string %}
+Cache={{ resolvconf_cache }}
+{%- else %}
+Cache={{ 'yes' if resolvconf_cache|bool else 'no' }}
+{% endif %}
