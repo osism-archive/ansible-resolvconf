@@ -38,7 +38,7 @@
     mode: 0644
   become: true
   loop:
-    - src: bionic/resolved.conf.j2
+    - src: focal/resolved.conf.j2
       dest: /etc/systemd/resolved.conf
   register: resolved_conf
 
